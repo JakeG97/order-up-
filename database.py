@@ -6,7 +6,7 @@ load_dotenv()
 # so that the environment variables are
 # properly loaded.
 from app import app, db
-from app.models import Employee, Menu, MenuItem, MenuItemType
+from app.models import Employee, Menu, MenuItem, MenuItemType, Table
 
 with app.app_context():
     db.drop_all()
@@ -27,5 +27,8 @@ with app.app_context():
     drp = MenuItem(name="Dr. Pepper", price=1.0, type=beverages, menu=dinner)
     jambalaya = MenuItem(name="Jambalaya", price=21.98, type=entrees, menu=dinner)
     db.session.add_all([fries, drp, jambalaya])
+
+    tables = [Table(number=n, capacity=4) for n in range(1, 11)]
+    db.session.add_all(tables)
 
     db.session.commit()
